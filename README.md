@@ -1,6 +1,6 @@
 # Bun plugin
 
-Bun WASM plugins for [proto](https://github.com/moonrepo/proto).
+[Bun](https://bun.sh/) WASM plugin for [proto](https://github.com/moonrepo/proto).
 
 ## Contributing
 
