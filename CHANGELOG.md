@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.0.2
+
+#### 🚀 Updates
+
+- Updated `load_versions` to use `git` instead of the GitHub API.
+- Requires proto >= v0.12.1.
+
 ## 0.0.1
 
 #### 🎉 Release
