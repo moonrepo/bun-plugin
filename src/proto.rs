@@ -18,28 +18,27 @@ pub fn register_tool(Json(_): Json<ToolMetadataInput>) -> FnResult<Json<ToolMeta
 pub fn download_prebuilt(
     Json(input): Json<DownloadPrebuiltInput>,
 ) -> FnResult<Json<DownloadPrebuiltOutput>> {
+    check_supported_os_and_arch(
+        NAME,
+        &input.env,
+        permutations! [
+            HostOS::Linux => [HostArch::X64, HostArch::Arm64],
+            HostOS::MacOS => [HostArch::X64, HostArch::Arm64],
+        ],
+    )?;
+
     let version = input.env.version;
 
     let arch = match input.env.arch {
         HostArch::Arm64 => "aarch64",
         HostArch::X64 => "x64",
-        other => {
-            return Err(PluginError::UnsupportedArchitecture {
-                tool: NAME.into(),
-                arch: other.to_string(),
-            })?;
-        }
+        _ => unreachable!(),
     };
 
     let prefix = match input.env.os {
         HostOS::Linux => format!("bun-linux-{arch}"),
         HostOS::MacOS => format!("bun-darwin-{arch}"),
-        other => {
-            return Err(PluginError::UnsupportedPlatform {
-                tool: NAME.into(),
-                platform: other.to_string(),
-            })?;
-        }
+        _ => unreachable!(),
     };
 
     let filename = format!("{prefix}.zip");
