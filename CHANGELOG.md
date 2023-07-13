@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.0.3
+
+#### 🚀 Updates
+
+- Improved OS/arch detection and combination logic.
+
 ## 0.0.2
 
 #### 🚀 Updates
