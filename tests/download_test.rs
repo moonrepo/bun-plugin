@@ -119,7 +119,7 @@ fn supports_macos_x64() {
 }
 
 #[test]
-#[should_panic(expected = "Unable to install Bun, unsupported platform windows.")]
+#[should_panic(expected = "Unable to install Bun")]
 fn doesnt_support_windows() {
     let sandbox = create_empty_sandbox();
     let plugin = create_plugin("bun-test", sandbox.path());
