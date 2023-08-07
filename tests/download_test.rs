@@ -3,8 +3,8 @@ use proto_pdk_test_utils::{create_plugin, generate_download_install_tests};
 use starbase_sandbox::create_empty_sandbox;
 use std::path::PathBuf;
 
-// #[cfg(not(windows))]
-// generate_download_install_tests!("bun-test", "0.6.0");
+#[cfg(not(windows))]
+generate_download_install_tests!("bun-test", "0.6.0");
 
 #[test]
 fn supports_linux_arm64() {
