@@ -1,5 +1,4 @@
-use proto_pdk::*;
-use proto_pdk_test_utils::{create_plugin, generate_resolve_versions_tests};
+use proto_pdk_test_utils::*;
 use starbase_sandbox::create_empty_sandbox;
 
 generate_resolve_versions_tests!("bun-test", {

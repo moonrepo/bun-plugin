@@ -62,6 +62,7 @@ pub fn locate_bins(Json(input): Json<LocateBinsInput>) -> FnResult<Json<LocateBi
         bin_path: Some(format_bin_name(BIN, input.env.os).into()),
         fallback_last_globals_dir: true,
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
+        ..LocateBinsOutput::default()
     }))
 }
 
