@@ -1,5 +1,4 @@
-use proto_pdk::*;
-use proto_pdk_test_utils::{create_plugin, generate_download_install_tests};
+use proto_pdk_test_utils::*;
 use starbase_sandbox::create_empty_sandbox;
 use std::path::PathBuf;
 
@@ -22,7 +21,6 @@ fn supports_linux_arm64() {
         }),
         DownloadPrebuiltOutput {
             archive_prefix: Some("bun-linux-aarch64".into()),
-            bin_path: None,
             checksum_name: None,
             checksum_url: Some(
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
@@ -51,7 +49,6 @@ fn supports_linux_x64() {
         }),
         DownloadPrebuiltOutput {
             archive_prefix: Some("bun-linux-x64".into()),
-            bin_path: None,
             checksum_name: None,
             checksum_url: Some(
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
@@ -80,7 +77,6 @@ fn supports_macos_arm64() {
         }),
         DownloadPrebuiltOutput {
             archive_prefix: Some("bun-darwin-aarch64".into()),
-            bin_path: None,
             checksum_name: None,
             checksum_url: Some(
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
@@ -109,7 +105,6 @@ fn supports_macos_x64() {
         }),
         DownloadPrebuiltOutput {
             archive_prefix: Some("bun-darwin-x64".into()),
-            bin_path: None,
             checksum_name: None,
             checksum_url: Some(
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
@@ -123,7 +118,7 @@ fn supports_macos_x64() {
 }
 
 #[test]
-#[should_panic(expected = "Unable to install Bun, unsupported OS windows.")]
+#[should_panic(expected = "Unable to install Bun")]
 fn doesnt_support_windows() {
     let sandbox = create_empty_sandbox();
     let plugin = create_plugin("bun-test", sandbox.path());
@@ -152,6 +147,7 @@ fn locates_unix_bin() {
                     version: "1.2.0".into(),
                     ..Default::default()
                 },
+                home_dir: PathBuf::new(),
                 tool_dir: PathBuf::new()
             })
             .bin_path,
@@ -173,6 +169,7 @@ fn locates_windows_bin() {
                     version: "1.2.0".into(),
                     ..Default::default()
                 },
+                home_dir: PathBuf::new(),
                 tool_dir: PathBuf::new()
             })
             .bin_path,

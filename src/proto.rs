@@ -59,13 +59,10 @@ pub fn download_prebuilt(
 #[plugin_fn]
 pub fn locate_bins(Json(input): Json<LocateBinsInput>) -> FnResult<Json<LocateBinsOutput>> {
     Ok(Json(LocateBinsOutput {
-        bin_path: Some(if input.env.os == HostOS::Windows {
-            format!("{}.exe", BIN) // Not supported yet
-        } else {
-            BIN.to_owned()
-        }),
+        bin_path: Some(format_bin_name(BIN, input.env.os).into()),
         fallback_last_globals_dir: true,
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
+        ..LocateBinsOutput::default()
     }))
 }
 
