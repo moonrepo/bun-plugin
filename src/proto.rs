@@ -99,7 +99,7 @@ pub fn create_shims(Json(_): Json<CreateShimsInput>) -> FnResult<Json<CreateShim
 pub fn install_global(
     Json(input): Json<InstallGlobalInput>,
 ) -> FnResult<Json<InstallGlobalOutput>> {
-    let result = exec_command!("bun", ["add", "--global", &input.dependency]);
+    let result = exec_command!(BIN, ["add", "--global", &input.dependency]);
 
     Ok(Json(InstallGlobalOutput::from_exec_command(result)))
 }
@@ -108,7 +108,7 @@ pub fn install_global(
 pub fn uninstall_global(
     Json(input): Json<UninstallGlobalInput>,
 ) -> FnResult<Json<UninstallGlobalOutput>> {
-    let result = exec_command!("bun", ["remove", "--global", &input.dependency]);
+    let result = exec_command!(BIN, ["remove", "--global", &input.dependency]);
 
     Ok(Json(UninstallGlobalOutput::from_exec_command(result)))
 }
