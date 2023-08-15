@@ -2,6 +2,11 @@ use extism_pdk::*;
 use proto_pdk::*;
 use std::collections::HashMap;
 
+#[host_fn]
+extern "ExtismHost" {
+    fn exec_command(input: Json<ExecCommandInput>) -> Json<ExecCommandOutput>;
+}
+
 static NAME: &str = "Bun";
 static BIN: &str = "bun";
 
@@ -10,6 +15,7 @@ pub fn register_tool(Json(_): Json<ToolMetadataInput>) -> FnResult<Json<ToolMeta
     Ok(Json(ToolMetadataOutput {
         name: NAME.into(),
         type_of: PluginType::Language,
+        plugin_version: Some(env!("CARGO_PKG_VERSION").into()),
         ..ToolMetadataOutput::default()
     }))
 }
@@ -75,7 +81,7 @@ pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVers
         .filter_map(|t| t.strip_prefix("bun-v").map(|t| t.to_owned()))
         .collect::<Vec<_>>();
 
-    Ok(Json(LoadVersionsOutput::from_tags(&tags)?))
+    Ok(Json(LoadVersionsOutput::from(tags)?))
 }
 
 #[plugin_fn]
@@ -87,4 +93,22 @@ pub fn create_shims(Json(_): Json<CreateShimsInput>) -> FnResult<Json<CreateShim
         global_shims,
         ..CreateShimsOutput::default()
     }))
+}
+
+#[plugin_fn]
+pub fn install_global(
+    Json(input): Json<InstallGlobalInput>,
+) -> FnResult<Json<InstallGlobalOutput>> {
+    let result = exec_command!(BIN, ["add", "--global", &input.dependency]);
+
+    Ok(Json(InstallGlobalOutput::from_exec_command(result)))
+}
+
+#[plugin_fn]
+pub fn uninstall_global(
+    Json(input): Json<UninstallGlobalInput>,
+) -> FnResult<Json<UninstallGlobalOutput>> {
+    let result = exec_command!(BIN, ["remove", "--global", &input.dependency]);
+
+    Ok(Json(UninstallGlobalOutput::from_exec_command(result)))
 }

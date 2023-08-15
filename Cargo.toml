@@ -1,6 +1,6 @@
 [package]
 name = "bun_plugin"
-version = "0.0.3"
+version = "0.1.1"
 edition = "2021"
 license = "MIT"
 publish = false
@@ -10,10 +10,10 @@ crate-type = ['cdylib']
 
 [dependencies]
 extism-pdk = "0.3.3"
-proto_pdk = "0.4.1"
+proto_pdk = { version = "0.4.5" }
 serde = "1.0.183"
 
 [dev-dependencies]
-proto_pdk_test_utils = "0.3.3"
+proto_pdk_test_utils = { version = "0.3.9" }
 starbase_sandbox = "0.1.8"
-tokio = "1.29.1"
+tokio = "1.31.0"
