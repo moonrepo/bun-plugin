@@ -10,6 +10,7 @@ fn registers_metadata() {
         plugin.register_tool(ToolMetadataInput::default()),
         ToolMetadataOutput {
             name: "Bun".into(),
+            plugin_version: Some(env!("CARGO_PKG_VERSION").into()),
             ..ToolMetadataOutput::default()
         }
     );
