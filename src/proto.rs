@@ -35,7 +35,7 @@ pub fn download_prebuilt(
         ],
     )?;
 
-    let version = input.state.version;
+    let version = input.context.version;
 
     let arch = match env.arch {
         HostArch::Arm64 => "aarch64",
