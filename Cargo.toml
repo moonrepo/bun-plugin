@@ -10,10 +10,10 @@ crate-type = ['cdylib']
 
 [dependencies]
 extism-pdk = "0.3.3"
-proto_pdk = { version = "0.4.5", path = "../../proto/crates/pdk" }
+proto_pdk = { version = "0.6.1" } # , path = "../../proto/crates/pdk" }
 serde = "1.0.183"
 
 [dev-dependencies]
-proto_pdk_test_utils = { version = "0.3.9", path = "../../proto/crates/pdk-test-utils" }
+proto_pdk_test_utils = { version = "0.5.0" } # , path = "../../proto/crates/pdk-test-utils" }
 starbase_sandbox = "0.1.8"
 tokio = "1.31.0"
