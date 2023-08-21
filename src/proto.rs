@@ -24,24 +24,26 @@ pub fn register_tool(Json(_): Json<ToolMetadataInput>) -> FnResult<Json<ToolMeta
 pub fn download_prebuilt(
     Json(input): Json<DownloadPrebuiltInput>,
 ) -> FnResult<Json<DownloadPrebuiltOutput>> {
+    let env = get_proto_environment()?;
+
     check_supported_os_and_arch(
         NAME,
-        &input.env,
+        &env,
         permutations! [
             HostOS::Linux => [HostArch::X64, HostArch::Arm64],
             HostOS::MacOS => [HostArch::X64, HostArch::Arm64],
         ],
     )?;
 
-    let version = input.env.version;
+    let version = input.context.version;
 
-    let arch = match input.env.arch {
+    let arch = match env.arch {
         HostArch::Arm64 => "aarch64",
         HostArch::X64 => "x64",
         _ => unreachable!(),
     };
 
-    let prefix = match input.env.os {
+    let prefix = match env.os {
         HostOS::Linux => format!("bun-linux-{arch}"),
         HostOS::MacOS => format!("bun-darwin-{arch}"),
         _ => unreachable!(),
@@ -63,9 +65,11 @@ pub fn download_prebuilt(
 }
 
 #[plugin_fn]
-pub fn locate_bins(Json(input): Json<LocateBinsInput>) -> FnResult<Json<LocateBinsOutput>> {
+pub fn locate_bins(Json(_): Json<LocateBinsInput>) -> FnResult<Json<LocateBinsOutput>> {
+    let env = get_proto_environment()?;
+
     Ok(Json(LocateBinsOutput {
-        bin_path: Some(format_bin_name(BIN, input.env.os).into()),
+        bin_path: Some(format_bin_name(BIN, env.os).into()),
         fallback_last_globals_dir: true,
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
         ..LocateBinsOutput::default()
@@ -99,7 +103,7 @@ pub fn create_shims(Json(_): Json<CreateShimsInput>) -> FnResult<Json<CreateShim
 pub fn install_global(
     Json(input): Json<InstallGlobalInput>,
 ) -> FnResult<Json<InstallGlobalOutput>> {
-    let result = exec_command!(BIN, ["add", "--global", &input.dependency]);
+    let result = exec_command!(inherit, BIN, ["add", "--global", &input.dependency]);
 
     Ok(Json(InstallGlobalOutput::from_exec_command(result)))
 }
@@ -108,7 +112,7 @@ pub fn install_global(
 pub fn uninstall_global(
     Json(input): Json<UninstallGlobalInput>,
 ) -> FnResult<Json<UninstallGlobalOutput>> {
-    let result = exec_command!(BIN, ["remove", "--global", &input.dependency]);
+    let result = exec_command!(inherit, BIN, ["remove", "--global", &input.dependency]);
 
     Ok(Json(UninstallGlobalOutput::from_exec_command(result)))
 }
