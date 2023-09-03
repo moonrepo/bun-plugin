@@ -17,3 +17,7 @@ serde = "1.0.188"
 proto_pdk_test_utils = { version = "0.5.9" } # , path = "../../proto/crates/pdk-test-utils" }
 starbase_sandbox = "0.1.8"
 tokio = "1.32.0"
+
+[profile.release]
+lto = true
+opt-level = "s"
