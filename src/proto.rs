@@ -50,6 +50,7 @@ pub fn download_prebuilt(
     };
 
     let filename = format!("{prefix}.zip");
+
     let tag = if version == "canary" {
         "canary".to_owned()
     } else {
