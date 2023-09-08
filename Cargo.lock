@@ -2072,7 +2072,9 @@ dependencies = [
 
 [[package]]
 name = "proto_core"
-version = "0.16.4"
+version = "0.17.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "301ba4904d65b120a91e923061b8b7ce74fe693f0775f280edd68717f0668d16"
 dependencies = [
  "cached",
  "extism",
@@ -2100,7 +2102,9 @@ dependencies = [
 
 [[package]]
 name = "proto_pdk"
-version = "0.6.5"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1f50967234069bfa3aea1a6017b0b7a0c38fc9ade11588d045ef560d455fd294"
 dependencies = [
  "anyhow",
  "extism-pdk",
@@ -2112,7 +2116,9 @@ dependencies = [
 
 [[package]]
 name = "proto_pdk_api"
-version = "0.6.3"
+version = "0.7.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e458d93c3eadbe10869d644d9461806861f2635f87c3171c347c70b12b5183a6"
 dependencies = [
  "anyhow",
  "semver",
@@ -2124,7 +2130,9 @@ dependencies = [
 
 [[package]]
 name = "proto_pdk_test_utils"
-version = "0.5.9"
+version = "0.6.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "023385b68543e04e2a6e3af1edc281d9a1e42c47b692f0ca0ff75e1492b76dac"
 dependencies = [
  "extism",
  "proto_core",
@@ -2135,7 +2143,9 @@ dependencies = [
 
 [[package]]
 name = "proto_wasm_plugin"
-version = "0.6.3"
+version = "0.6.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f11e4a5135da5ab3ca908b247f0cdbe7970c7e2ee4bae01308df2dfba8640854"
 dependencies = [
  "extism",
  "proto_pdk_api",
@@ -3235,7 +3245,9 @@ dependencies = [
 
 [[package]]
 name = "warpgate"
-version = "0.5.3"
+version = "0.5.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "37e105ab7fd178b2fc6b59439046418278b478e761549658a41eb48c97a9944a"
 dependencies = [
  "extism",
  "miette",
@@ -3257,6 +3269,8 @@ dependencies = [
 [[package]]
 name = "warpgate_api"
 version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c87f4f62fa42fa715ce697387b4c5c66ae0380723b841b1e0ff9fd285c78ab5f"
 dependencies = [
  "serde",
 ]
