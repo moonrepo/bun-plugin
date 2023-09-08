@@ -51,14 +51,18 @@ pub fn download_prebuilt(
 
     let filename = format!("{prefix}.zip");
 
+    let tag = if version == "canary" {
+        "canary".to_owned()
+    } else {
+        format!("bun-v{version}")
+    };
+
     Ok(Json(DownloadPrebuiltOutput {
         archive_prefix: Some(prefix),
-        download_url: format!(
-            "https://github.com/oven-sh/bun/releases/download/bun-v{version}/{filename}"
-        ),
+        download_url: format!("https://github.com/oven-sh/bun/releases/download/{tag}/{filename}"),
         download_name: Some(filename),
         checksum_url: Some(format!(
-            "https://github.com/oven-sh/bun/releases/download/bun-v{version}/SHASUMS256.txt"
+            "https://github.com/oven-sh/bun/releases/download/{tag}/SHASUMS256.txt"
         )),
         ..DownloadPrebuiltOutput::default()
     }))

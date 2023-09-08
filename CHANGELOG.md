@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0
+
+#### 🚀 Updates
+
+- Added support for installing the [canary release](https://github.com/oven-sh/bun/releases/tag/canary).
+- Updated to support proto v0.17 release.
+
 ## 0.2.1
 
 #### 🚀 Updates
