@@ -4,6 +4,13 @@ use starbase_sandbox::create_empty_sandbox;
 #[cfg(not(windows))]
 generate_download_install_tests!("bun-test", "1.0.0");
 
+#[cfg(not(windows))]
+mod canary {
+    use super::*;
+
+    generate_download_install_tests!("bun-test", "canary");
+}
+
 #[test]
 fn supports_linux_arm64() {
     let sandbox = create_empty_sandbox();
