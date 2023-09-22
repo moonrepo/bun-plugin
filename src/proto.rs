@@ -61,9 +61,14 @@ pub fn download_prebuilt(
         archive_prefix: Some(prefix),
         download_url: format!("https://github.com/oven-sh/bun/releases/download/{tag}/{filename}"),
         download_name: Some(filename),
-        checksum_url: Some(format!(
-            "https://github.com/oven-sh/bun/releases/download/{tag}/SHASUMS256.txt"
-        )),
+        // Checksums are not consistently updated
+        checksum_url: if version == "canary" {
+            None
+        } else {
+            Some(format!(
+                "https://github.com/oven-sh/bun/releases/download/{tag}/SHASUMS256.txt"
+            ))
+        },
         ..DownloadPrebuiltOutput::default()
     }))
 }
