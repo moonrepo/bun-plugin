@@ -11,6 +11,7 @@ fn registers_metadata() {
         ToolMetadataOutput {
             name: "Bun".into(),
             plugin_version: Some(env!("CARGO_PKG_VERSION").into()),
+            self_upgrade_commands: vec!["upgrade".into()],
             ..ToolMetadataOutput::default()
         }
     );

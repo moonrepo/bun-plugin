@@ -16,6 +16,7 @@ pub fn register_tool(Json(_): Json<ToolMetadataInput>) -> FnResult<Json<ToolMeta
         name: NAME.into(),
         type_of: PluginType::Language,
         plugin_version: Some(env!("CARGO_PKG_VERSION").into()),
+        self_upgrade_commands: vec!["upgrade".into()],
         ..ToolMetadataOutput::default()
     }))
 }

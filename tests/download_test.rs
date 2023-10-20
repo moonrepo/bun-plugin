@@ -27,18 +27,19 @@ fn supports_linux_arm64() {
             context: ToolContext {
                 version: "1.2.0".into(),
                 ..Default::default()
-            }
+            },
+            ..Default::default()
         }),
         DownloadPrebuiltOutput {
             archive_prefix: Some("bun-linux-aarch64".into()),
-            checksum_name: None,
             checksum_url: Some(
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
             ),
             download_name: Some("bun-linux-aarch64.zip".into()),
             download_url:
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-linux-aarch64.zip"
-                    .into()
+                    .into(),
+            ..Default::default()
         }
     );
 }
@@ -59,18 +60,19 @@ fn supports_linux_x64() {
             context: ToolContext {
                 version: "1.2.0".into(),
                 ..Default::default()
-            }
+            },
+            ..Default::default()
         }),
         DownloadPrebuiltOutput {
             archive_prefix: Some("bun-linux-x64".into()),
-            checksum_name: None,
             checksum_url: Some(
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
             ),
             download_name: Some("bun-linux-x64.zip".into()),
             download_url:
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-linux-x64.zip"
-                    .into()
+                    .into(),
+            ..Default::default()
         }
     );
 }
@@ -91,18 +93,19 @@ fn supports_macos_arm64() {
             context: ToolContext {
                 version: "1.2.0".into(),
                 ..Default::default()
-            }
+            },
+            ..Default::default()
         }),
         DownloadPrebuiltOutput {
             archive_prefix: Some("bun-darwin-aarch64".into()),
-            checksum_name: None,
             checksum_url: Some(
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
             ),
             download_name: Some("bun-darwin-aarch64.zip".into()),
             download_url:
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-darwin-aarch64.zip"
-                    .into()
+                    .into(),
+            ..Default::default()
         }
     );
 }
@@ -123,18 +126,19 @@ fn supports_macos_x64() {
             context: ToolContext {
                 version: "1.2.0".into(),
                 ..Default::default()
-            }
+            },
+            ..Default::default()
         }),
         DownloadPrebuiltOutput {
             archive_prefix: Some("bun-darwin-x64".into()),
-            checksum_name: None,
             checksum_url: Some(
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
             ),
             download_name: Some("bun-darwin-x64.zip".into()),
             download_url:
                 "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-darwin-x64.zip"
-                    .into()
+                    .into(),
+            ..Default::default()
         }
     );
 }
@@ -156,6 +160,7 @@ fn doesnt_support_windows() {
             version: "1.2.0".into(),
             ..Default::default()
         },
+        ..Default::default()
     });
 }
 

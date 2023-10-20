@@ -1,6 +1,6 @@
 [package]
 name = "bun_plugin"
-version = "0.3.1"
+version = "0.4.0"
 edition = "2021"
 license = "MIT"
 publish = false
@@ -10,13 +10,13 @@ crate-type = ['cdylib']
 
 [dependencies]
 extism-pdk = "0.3.4"
-proto_pdk = { version = "0.7.3" } #, path = "../../proto/crates/pdk" }
-serde = "1.0.188"
+proto_pdk = { version = "0.8.0" } # , path = "../../proto/crates/pdk" }
+serde = "1.0.189"
 
 [dev-dependencies]
-proto_pdk_test_utils = { version = "0.7.1" } # , path = "../../proto/crates/pdk-test-utils" }
-starbase_sandbox = "0.1.10"
-tokio = "1.32.0"
+proto_pdk_test_utils = { version = "0.8.2" } # , path = "../../proto/crates/pdk-test-utils" }
+starbase_sandbox = "0.1.11"
+tokio = "1.33.0"
 
 [profile.release]
 codegen-units = 1
