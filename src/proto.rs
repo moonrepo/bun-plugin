@@ -52,7 +52,7 @@ pub fn download_prebuilt(
 
     let filename = format!("{prefix}.zip");
 
-    let tag = if version == "canary" {
+    let tag = if version.is_canary() {
         "canary".to_owned()
     } else {
         format!("bun-v{version}")
@@ -63,7 +63,7 @@ pub fn download_prebuilt(
         download_url: format!("https://github.com/oven-sh/bun/releases/download/{tag}/{filename}"),
         download_name: Some(filename),
         // Checksums are not consistently updated
-        checksum_url: if version == "canary" {
+        checksum_url: if version.is_canary() {
             None
         } else {
             Some(format!(
