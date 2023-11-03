@@ -94,7 +94,7 @@ pub fn locate_executables(
 
     Ok(Json(LocateExecutablesOutput {
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
-        primary: Some(ExecutableConfig::with_path(format_bin_name(BIN, env.os))),
+        primary: Some(ExecutableConfig::new(format_bin_name(BIN, env.os))),
         secondary: HashMap::from_iter([
             // bunx
             (
