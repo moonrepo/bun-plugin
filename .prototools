@@ -1,2 +1,2 @@
 [plugins]
-bun-test = "source:/Users/miles/.cargo/shared-target/wasm32-wasi/debug/bun_plugin.wasm"
+bun-test = "source:target/wasm32-wasi/debug/bun_plugin.wasm"
