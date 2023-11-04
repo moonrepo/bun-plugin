@@ -4,7 +4,7 @@ use starbase_sandbox::create_empty_sandbox;
 generate_resolve_versions_tests!("bun-test", {
     "0.4" => "0.4.0",
     "0.5.1" => "0.5.1",
-    "1" => "1.0.7",
+    "1" => "1.0.8",
 });
 
 #[test]
