@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1
+
+#### 🚀 Updates
+
+- The `bunx` shim is no longer created (you may have to delete your existing one),
+  as it does not work correctly with Bun's `--bun` argument. However, `~/.proto/bin/bunx`
+  is still created and should be available on `PATH`.
+
 ## 0.5.0
 
 #### 🚀 Updates
