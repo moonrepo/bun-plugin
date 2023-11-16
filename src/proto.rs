@@ -91,20 +91,22 @@ pub fn locate_executables(
     Json(_): Json<LocateExecutablesInput>,
 ) -> FnResult<Json<LocateExecutablesOutput>> {
     let env = get_proto_environment()?;
+    let primary = ExecutableConfig::new(env.os.get_exe_name(BIN));
 
     Ok(Json(LocateExecutablesOutput {
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
-        primary: Some(ExecutableConfig::new(env.os.get_exe_name(BIN))),
+        primary: Some(primary.clone()),
         secondary: HashMap::from_iter([
             // bunx
             (
                 "bunx".into(),
                 ExecutableConfig {
-                    // `bunx` isn't provided by Bun so we can't symlink it.
-                    // Instead our shim calls `bun x` (note the space).
-                    no_bin: true,
-                    shim_before_args: Some("x".into()),
-                    ..ExecutableConfig::default()
+                    // Bun enables bunx mode when argv0 ends with "bunx",
+                    // which doesn't work for shims, so avoid using them.
+                    // https://github.com/oven-sh/bun/blob/main/src/cli.zig#L1117
+                    // https://github.com/moonrepo/bun-plugin/issues/12
+                    no_shim: true,
+                    ..primary
                 },
             ),
         ]),
