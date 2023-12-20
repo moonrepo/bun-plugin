@@ -93,31 +93,24 @@ pub fn locate_executables(
     let env = get_proto_environment()?;
     let proto_version = input.context.proto_version.as_ref();
 
+    // `bunx` isn't a real binary provided by Bun so we can't symlink it.
+    // Instead, it's simply the `bun` binary named `bunx` and Bun toggles
+    // functionality based on `args[0]`.
+    let mut bunx = ExecutableConfig::new(env.os.get_exe_name(BIN));
+
+    // <= 0.25, execute "bun x"
+    if proto_version.is_none()
+        || proto_version.is_some_and(|version| version.major == 0 && version.minor < 26)
+    {
+        bunx.shim_before_args = Some(StringOrVec::String("x".into()));
+    }
+
     Ok(Json(LocateExecutablesOutput {
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
         primary: Some(ExecutableConfig::new(env.os.get_exe_name(BIN))),
         secondary: HashMap::from_iter([
             // bunx
-            (
-                "bunx".into(),
-                ExecutableConfig {
-                    // `bunx` isn't a real binary provided by Bun so we can't
-                    // symlink it. Instead, it's simply the `bun` binary named
-                    // `bunx` and Bun toggles functionality based on `args[0]`.
-                    no_bin: true,
-                    shim_before_args: if proto_version.is_none()
-                        || proto_version
-                            .is_some_and(|version| version.major == 0 && version.minor < 26)
-                    {
-                        // <= 0.25, execute "bun x"
-                        Some(StringOrVec::String("x".into()))
-                    } else {
-                        // >= 0.26, execute "bunx" inferred
-                        None
-                    },
-                    ..ExecutableConfig::default()
-                },
-            ),
+            ("bunx".into(), bunx),
         ]),
         ..LocateExecutablesOutput::default()
     }))
