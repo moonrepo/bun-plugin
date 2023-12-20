@@ -88,9 +88,10 @@ pub fn download_prebuilt(
 
 #[plugin_fn]
 pub fn locate_executables(
-    Json(_): Json<LocateExecutablesInput>,
+    Json(input): Json<LocateExecutablesInput>,
 ) -> FnResult<Json<LocateExecutablesOutput>> {
     let env = get_proto_environment()?;
+    let proto_version = input.context.proto_version.as_ref();
 
     Ok(Json(LocateExecutablesOutput {
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
@@ -100,10 +101,20 @@ pub fn locate_executables(
             (
                 "bunx".into(),
                 ExecutableConfig {
-                    // `bunx` isn't provided by Bun so we can't symlink it.
-                    // Instead our shim calls `bun x` (note the space).
+                    // `bunx` isn't a real binary provided by Bun so we can't
+                    // symlink it. Instead, it's simply the `bun` binary named
+                    // `bunx` and Bun toggles functionality based on `args[0]`.
                     no_bin: true,
-                    shim_before_args: Some(StringOrVec::String("x".into())),
+                    shim_before_args: if proto_version.is_none()
+                        || proto_version
+                            .is_some_and(|version| version.major == 0 && version.minor < 26)
+                    {
+                        // <= 0.25, execute "bun x"
+                        Some(StringOrVec::String("x".into()))
+                    } else {
+                        // >= 0.26, execute "bunx" inferred
+                        None
+                    },
                     ..ExecutableConfig::default()
                 },
             ),
