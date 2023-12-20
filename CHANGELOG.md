@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.7.0
+
+#### 🚀 Updates
+
+- Updated to support proto v0.26 release.
+- Will now symlink a `bunx` binary to `~/.proto/bin`.
+- The shim will continue to use `bun x` under the hood (note the space).
+
+#### ⚙️ Internal
+
+- Updated dependencies.
+
 ## 0.6.0
 
 #### 🚀 Updates

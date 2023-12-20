@@ -92,21 +92,22 @@ pub fn locate_executables(
 ) -> FnResult<Json<LocateExecutablesOutput>> {
     let env = get_proto_environment()?;
 
+    // `bunx` isn't a real binary provided by Bun so we can't symlink it.
+    // Instead, it's simply the `bun` binary named `bunx` and Bun toggles
+    // functionality based on `args[0]`.
+    let mut bunx = ExecutableConfig::default();
+    bunx.exe_link_path = Some(env.os.get_exe_name(BIN).into());
+
+    // The approach doesn't work for shims since we use child processes,
+    // so execute `bun x` instead (notice the space).
+    bunx.shim_before_args = Some(StringOrVec::String("x".into()));
+
     Ok(Json(LocateExecutablesOutput {
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
         primary: Some(ExecutableConfig::new(env.os.get_exe_name(BIN))),
         secondary: HashMap::from_iter([
             // bunx
-            (
-                "bunx".into(),
-                ExecutableConfig {
-                    // `bunx` isn't provided by Bun so we can't symlink it.
-                    // Instead our shim calls `bun x` (note the space).
-                    no_bin: true,
-                    shim_before_args: Some("x".into()),
-                    ..ExecutableConfig::default()
-                },
-            ),
+            ("bunx".into(), bunx),
         ]),
         ..LocateExecutablesOutput::default()
     }))

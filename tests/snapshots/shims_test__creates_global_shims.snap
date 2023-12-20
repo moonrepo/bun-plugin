@@ -1,14 +1,13 @@
 ---
 source: tests/shims_test.rs
-expression: "std::fs::read_to_string(sandbox.path().join(\".proto/shims\").join(if cfg!(windows)\n                    {\n                    format!(\"{}.cmd\", \"bun-test\")\n                } else { \"bun-test\".to_string() })).unwrap()"
+expression: "std::fs::read_to_string(sandbox.path().join(\".proto/shims/registry.json\")).unwrap()"
 ---
-#!/usr/bin/env bash
-set -e
-
-if [ -n "$PROTO_DEBUG" ]; then
-    set -x
-    echo "Running with bun-test.sh shim"
-fi
-
-exec proto run bun-test --  "$@" 
-
+{
+  "bun-test": {},
+  "bunx": {
+    "parent": "bun-test",
+    "before_args": [
+      "x"
+    ]
+  }
+}
