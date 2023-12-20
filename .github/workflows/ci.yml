@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: moonrepo/setup-rust@v1
         with:
+          cache: false
           components: rustfmt
       - run: cargo fmt --all --check
   lint:
@@ -31,6 +32,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: moonrepo/setup-rust@v1
         with:
+          cache: false
           components: clippy
       - run: cargo clippy --workspace --all-targets
   test:
@@ -44,9 +46,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: moonrepo/setup-rust@v1
         with:
-          bins: cargo-wasi, cargo-nextest
+          bins: cargo-nextest
+          cache: false
       - uses: moonrepo/setup-toolchain@v0
         with:
           proto-version: 0.26.0-rc.2
-      - run: cargo wasi build
+      - uses: moonrepo/build-proto-plugin@v0
       - run: cargo nextest run --no-default-features
