@@ -95,7 +95,8 @@ pub fn locate_executables(
     // `bunx` isn't a real binary provided by Bun so we can't symlink it.
     // Instead, it's simply the `bun` binary named `bunx` and Bun toggles
     // functionality based on `args[0]`.
-    let mut bunx = ExecutableConfig::new(env.os.get_exe_name(BIN));
+    let mut bunx = ExecutableConfig::default();
+    bunx.exe_link_path = Some(env.os.get_exe_name(BIN).into());
 
     // The approach doesn't work for shims since we use child processes,
     // so execute `bun x` instead (notice the space).

@@ -5,6 +5,9 @@ expression: "std::fs::read_to_string(sandbox.path().join(\".proto/shims/registry
 {
   "bun-test": {},
   "bunx": {
-    "parent": "bun-test"
+    "parent": "bun-test",
+    "before_args": [
+      "x"
+    ]
   }
 }
