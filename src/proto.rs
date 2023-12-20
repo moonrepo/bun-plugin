@@ -103,7 +103,7 @@ pub fn locate_executables(
                     // `bunx` isn't provided by Bun so we can't symlink it.
                     // Instead our shim calls `bun x` (note the space).
                     no_bin: true,
-                    shim_before_args: Some("x".into()),
+                    shim_before_args: Some(StringOrVec::String("x".into())),
                     ..ExecutableConfig::default()
                 },
             ),
