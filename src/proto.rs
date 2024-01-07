@@ -130,29 +130,3 @@ pub fn uninstall_global(
 
     Ok(Json(UninstallGlobalOutput::from_exec_command(result)))
 }
-
-// DEPRECATED
-// Remove in v0.23!
-
-#[plugin_fn]
-pub fn locate_bins(Json(_): Json<LocateBinsInput>) -> FnResult<Json<LocateBinsOutput>> {
-    let env = get_proto_environment()?;
-
-    Ok(Json(LocateBinsOutput {
-        bin_path: Some(env.os.get_exe_name(BIN).into()),
-        fallback_last_globals_dir: true,
-        globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
-        ..LocateBinsOutput::default()
-    }))
-}
-
-#[plugin_fn]
-pub fn create_shims(Json(_): Json<CreateShimsInput>) -> FnResult<Json<CreateShimsOutput>> {
-    let mut global_shims = HashMap::new();
-    global_shims.insert("bunx".into(), ShimConfig::global_with_sub_command("x"));
-
-    Ok(Json(CreateShimsOutput {
-        global_shims,
-        ..CreateShimsOutput::default()
-    }))
-}

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.8.0
+
+#### 💥 Breaking
+
+- Removed deprecated functions: `locate_bins`, `create_shims`
+
+#### 🚀 Updates
+
+- Updated to support proto v0.28 release.
+- Updated to extism-pdk v1.
+
 ## 0.7.0
 
 #### 🚀 Updates
