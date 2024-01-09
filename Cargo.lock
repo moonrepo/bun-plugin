@@ -886,12 +886,14 @@ dependencies = [
 
 [[package]]
 name = "extism"
-version = "0.0.0+replaced-by-ci"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0929c64560cac1e9c71562ec1611dce2b383354371547d201802ab4abc23387b"
 dependencies = [
  "anyhow",
  "cbindgen",
- "extism-convert 0.0.0+replaced-by-ci",
- "extism-manifest 0.0.0+replaced-by-ci",
+ "extism-convert",
+ "extism-manifest",
  "glob",
  "libc",
  "serde",
@@ -909,7 +911,9 @@ dependencies = [
 
 [[package]]
 name = "extism-convert"
-version = "0.0.0+replaced-by-ci"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d01a01edfb12afa6ce5f4d5205831b0630edb867918aa3d2fc829a9dfbfa75f1"
 dependencies = [
  "anyhow",
  "base64",
@@ -921,46 +925,26 @@ dependencies = [
 ]
 
 [[package]]
-name = "extism-convert"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "74ab6cd70509e6d74b7c3587f823a2061cfb65b111b4173bd882858eaa87e4a3"
-dependencies = [
- "anyhow",
- "base64",
- "prost",
- "rmp-serde",
- "serde",
- "serde_json",
-]
-
-[[package]]
 name = "extism-manifest"
-version = "0.0.0+replaced-by-ci"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fb76af5cf0fd656e6dff25069056ef41ce0eb0541cc98c15b90b601a16fcfacc"
 dependencies = [
  "base64",
  "serde",
  "serde_json",
-]
-
-[[package]]
-name = "extism-manifest"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "22b0e600ec289630715ffdc11aca36a26297c3ab7908f14d5bbf3770d102bce7"
-dependencies = [
- "base64",
- "serde",
 ]
 
 [[package]]
 name = "extism-pdk"
-version = "1.0.0-rc1"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "38ac12d16e778ccf351f39a45efb65c0bbdb45bc9928c557507e808efafa51cf"
 dependencies = [
  "anyhow",
  "base64",
- "extism-convert 0.2.0",
- "extism-manifest 0.5.0",
+ "extism-convert",
+ "extism-manifest",
  "extism-pdk-derive",
  "serde",
  "serde_json",
@@ -968,7 +952,9 @@ dependencies = [
 
 [[package]]
 name = "extism-pdk-derive"
-version = "1.0.0-rc1"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "61a79239414de9041626020530854cef77027a28d92bf542c7854e271101e9aa"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2048,7 +2034,9 @@ dependencies = [
 
 [[package]]
 name = "proto_core"
-version = "0.27.0"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "14c631bbb706645368007d186d34b3bbd9fbda8af42c0cc9af23be32c5a274a6"
 dependencies = [
  "cached",
  "extism",
@@ -2080,7 +2068,9 @@ dependencies = [
 
 [[package]]
 name = "proto_pdk"
-version = "0.13.0"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2f53c8dca1cdbe13a62980bbdca667201b1c8a53776fc55e724ac45c23a2e93f"
 dependencies = [
  "anyhow",
  "extism-pdk",
@@ -2090,7 +2080,9 @@ dependencies = [
 
 [[package]]
 name = "proto_pdk_api"
-version = "0.13.0"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "35e23dfb0369a34b468df9c70e8d0b1482022aaa31803d7d57981adf1c34a097"
 dependencies = [
  "anyhow",
  "semver",
@@ -2104,7 +2096,9 @@ dependencies = [
 
 [[package]]
 name = "proto_pdk_test_utils"
-version = "0.15.1"
+version = "0.16.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b16621ab986f0c392fe5f5be97acf318ea054231850cde70604a9e32a38f0900"
 dependencies = [
  "extism",
  "proto_core",
@@ -2116,6 +2110,8 @@ dependencies = [
 [[package]]
 name = "proto_shim"
 version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9818ce0d6c81e911ef60f047b9e8befdab59a2aebda8fee7c54da8a7556ba0bc"
 dependencies = [
  "command-group",
  "dirs 5.0.1",
@@ -2928,6 +2924,8 @@ dependencies = [
 [[package]]
 name = "system_env"
 version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8dbaf08f70781cb6543bb0cce3d6b63a50cce05f4b071db833d78426f072ef7b"
 dependencies = [
  "schematic",
  "serde",
@@ -3307,6 +3305,8 @@ checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
 [[package]]
 name = "version_spec"
 version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "28f9327e7b3c0554ec9291491b8e16bf693d35ea18ba4173efbcf2e76078c91f"
 dependencies = [
  "human-sort",
  "regex",
@@ -3345,7 +3345,9 @@ dependencies = [
 
 [[package]]
 name = "warpgate"
-version = "0.8.0"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1dd1ca71a22749f8c4274e60b01ea4d8157553f9ea2c14ab8850c588ec59e893"
 dependencies = [
  "extism",
  "miette",
@@ -3368,6 +3370,8 @@ dependencies = [
 [[package]]
 name = "warpgate_api"
 version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d20a7b09712daf3301122452839647781d6b33e1090aa68cde27f0e70fa33398"
 dependencies = [
  "schematic",
  "serde",

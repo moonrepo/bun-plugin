@@ -9,12 +9,12 @@ publish = false
 crate-type = ['cdylib']
 
 [dependencies]
-extism-pdk = { version = "1.0.0-rc1", path = "../../extism-pdk" }
-proto_pdk = { version = "0.13.0", path = "../../proto/crates/pdk" }
+extism-pdk = { version = "1.0.0" }
+proto_pdk = { version = "0.14.0" } #, path = "../../proto/crates/pdk" }
 serde = "1.0.195"
 
 [dev-dependencies]
-proto_pdk_test_utils = { version = "0.15.1", path = "../../proto/crates/pdk-test-utils" }
+proto_pdk_test_utils = { version = "0.16.0" }       #, path = "../../proto/crates/pdk-test-utils" }
 starbase_sandbox = "0.1.12"
 tokio = { version = "1.35.1", features = ["full"] }
 
