@@ -27,7 +27,7 @@ pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVers
 
     let tags = tags
         .iter()
-        .filter_map(|t| t.strip_prefix("bun-v").map(|t| t.to_owned()))
+        .filter_map(|tag| tag.strip_prefix("bun-v").map(|tag| tag.to_owned()))
         .collect::<Vec<_>>();
 
     Ok(Json(LoadVersionsOutput::from(tags)?))
@@ -92,15 +92,18 @@ pub fn locate_executables(
 ) -> FnResult<Json<LocateExecutablesOutput>> {
     let env = get_proto_environment()?;
 
-    // `bunx` isn't a real binary provided by Bun so we can't symlink it.
-    // Instead, it's simply the `bun` binary named `bunx` and Bun toggles
-    // functionality based on `args[0]`.
-    let mut bunx = ExecutableConfig::default();
-    bunx.exe_link_path = Some(env.os.get_exe_name(BIN).into());
+    let bunx = ExecutableConfig {
+        // `bunx` isn't a real binary provided by Bun so we can't symlink it.
+        // Instead, it's simply the `bun` binary named `bunx` and Bun toggles
+        // functionality based on `args[0]`.
+        exe_link_path: Some(env.os.get_exe_name(BIN).into()),
 
-    // The approach doesn't work for shims since we use child processes,
-    // so execute `bun x` instead (notice the space).
-    bunx.shim_before_args = Some(StringOrVec::String("x".into()));
+        // The approach doesn't work for shims since we use child processes,
+        // so execute `bun x` instead (notice the space).
+        shim_before_args: Some(StringOrVec::String("x".into())),
+
+        ..ExecutableConfig::default()
+    };
 
     Ok(Json(LocateExecutablesOutput {
         globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
@@ -129,30 +132,4 @@ pub fn uninstall_global(
     let result = exec_command!(inherit, BIN, ["remove", "--global", &input.dependency]);
 
     Ok(Json(UninstallGlobalOutput::from_exec_command(result)))
-}
-
-// DEPRECATED
-// Remove in v0.23!
-
-#[plugin_fn]
-pub fn locate_bins(Json(_): Json<LocateBinsInput>) -> FnResult<Json<LocateBinsOutput>> {
-    let env = get_proto_environment()?;
-
-    Ok(Json(LocateBinsOutput {
-        bin_path: Some(env.os.get_exe_name(BIN).into()),
-        fallback_last_globals_dir: true,
-        globals_lookup_dirs: vec!["$HOME/.bun/bin".into()],
-        ..LocateBinsOutput::default()
-    }))
-}
-
-#[plugin_fn]
-pub fn create_shims(Json(_): Json<CreateShimsInput>) -> FnResult<Json<CreateShimsOutput>> {
-    let mut global_shims = HashMap::new();
-    global_shims.insert("bunx".into(), ShimConfig::global_with_sub_command("x"));
-
-    Ok(Json(CreateShimsOutput {
-        global_shims,
-        ..CreateShimsOutput::default()
-    }))
 }

@@ -50,6 +50,6 @@ jobs:
           cache: false
       - uses: moonrepo/setup-toolchain@v0
         with:
-          proto-version: 0.26.0-rc.2
+          proto-version: 0.28.0-rc.0
       - uses: moonrepo/build-proto-plugin@v0
       - run: cargo nextest run --no-default-features
