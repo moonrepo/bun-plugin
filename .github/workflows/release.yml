@@ -18,11 +18,13 @@ jobs:
       - uses: moonrepo/setup-rust@v1
         with:
           cache: false
-      - uses: moonrepo/build-proto-plugin@v0
+      - id: build
+        uses: moonrepo/build-wasm-plugin@v0
       - if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
         uses: ncipollo/release-action@v1
         with:
           artifacts: builds/*
           artifactErrorsFailBuild: true
+          body: ${{ steps.build.outputs.changelog-entry }}
           prerelease: ${{ contains(github.ref_name, '-alpha') || contains(github.ref_name, '-beta') || contains(github.ref_name, '-rc') }}
           skipIfReleaseExists: true
