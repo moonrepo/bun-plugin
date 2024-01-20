@@ -37,7 +37,7 @@ pub fn load_versions(Json(_): Json<LoadVersionsInput>) -> FnResult<Json<LoadVers
 pub fn download_prebuilt(
     Json(input): Json<DownloadPrebuiltInput>,
 ) -> FnResult<Json<DownloadPrebuiltOutput>> {
-    let env = get_proto_environment()?;
+    let env = get_host_environment()?;
 
     check_supported_os_and_arch(
         NAME,
@@ -90,7 +90,7 @@ pub fn download_prebuilt(
 pub fn locate_executables(
     Json(_): Json<LocateExecutablesInput>,
 ) -> FnResult<Json<LocateExecutablesOutput>> {
-    let env = get_proto_environment()?;
+    let env = get_host_environment()?;
 
     let bunx = ExecutableConfig {
         // `bunx` isn't a real binary provided by Bun so we can't symlink it.
