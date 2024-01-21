@@ -212,7 +212,7 @@ checksum = "a3e2c3daef883ecc1b5d58c15adae93470a91d425f3532ba1695849656af3fc1"
 
 [[package]]
 name = "bun_plugin"
-version = "0.8.0"
+version = "0.9.0"
 dependencies = [
  "extism-pdk",
  "proto_pdk",
@@ -2095,9 +2095,9 @@ dependencies = [
 
 [[package]]
 name = "proto_pdk_test_utils"
-version = "0.17.0"
+version = "0.17.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f672c4515f5163f5bd7d273b6b5b10ac4abc6a89eafb3f73b981f0744f05d052"
+checksum = "12b75ee41a2a5f34901c7fe8d8a4a9962970db748e677fa37bd4f42ea98a87ba"
 dependencies = [
  "extism",
  "proto_core",
@@ -3346,9 +3346,9 @@ dependencies = [
 
 [[package]]
 name = "warpgate"
-version = "0.10.0"
+version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "85a821ae1e98d0b2f139b33f6274d5dbe6433c7cda2e30b11d55fe00c01b3905"
+checksum = "e1b0f04bedfddf58c3d3116a3e7cfb4deabec611aefb02a4ce28503ee00a67f3"
 dependencies = [
  "extism",
  "miette",
