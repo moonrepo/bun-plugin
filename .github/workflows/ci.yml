@@ -49,7 +49,5 @@ jobs:
           bins: cargo-nextest
           cache: false
       - uses: moonrepo/setup-toolchain@v0
-        with:
-          proto-version: 0.28.0-rc.0
       - uses: moonrepo/build-proto-plugin@v0
       - run: cargo nextest run --no-default-features
