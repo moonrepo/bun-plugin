@@ -5,6 +5,7 @@
 #### 🚀 Updates
 
 - Updated to support proto v0.31 release.
+- Updated dependencies.
 
 ## 0.9.0
 
