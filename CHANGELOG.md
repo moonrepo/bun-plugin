@@ -2,6 +2,11 @@
 
 ## 0.10.0
 
+#### 💥 Breaking
+
+- Removed `install_global`, use `bun add --global` instead.
+- Removed `uninstall_global`, use `bun remove --global` instead.
+
 #### 🚀 Updates
 
 - Updated to support proto v0.31 release.
