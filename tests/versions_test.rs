@@ -1,16 +1,15 @@
 use proto_pdk_test_utils::*;
-use starbase_sandbox::create_empty_sandbox;
 
 generate_resolve_versions_tests!("bun-test", {
     "0.4" => "0.4.0",
     "0.5.1" => "0.5.1",
-    "1" => "1.0.29",
+    "1" => "1.0.33",
 });
 
 #[test]
 fn loads_versions_from_git() {
-    let sandbox = create_empty_sandbox();
-    let plugin = create_plugin("bun-test", sandbox.path());
+    let sandbox = create_empty_proto_sandbox();
+    let plugin = sandbox.create_plugin("bun-test");
 
     let output = plugin.load_versions(LoadVersionsInput::default());
 
@@ -19,8 +18,8 @@ fn loads_versions_from_git() {
 
 #[test]
 fn sets_latest_alias() {
-    let sandbox = create_empty_sandbox();
-    let plugin = create_plugin("bun-test", sandbox.path());
+    let sandbox = create_empty_proto_sandbox();
+    let plugin = sandbox.create_plugin("bun-test");
 
     let output = plugin.load_versions(LoadVersionsInput::default());
 
