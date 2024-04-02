@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.11.0
+
+#### 🚀 Updates
+
+- Added Windows support.
+- Will now use the baseline build on x64 Linux when available.
+
 ## 0.10.1
 
 #### 🚀 Updates
