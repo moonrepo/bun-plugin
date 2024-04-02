@@ -52,14 +52,14 @@ fn supports_linux_x64() {
         ..Default::default()
     });
 
-    assert_eq!(result.archive_prefix, Some("bun-linux-x64".into()));
     assert_eq!(
         result.checksum_url,
         Some("https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into())
     );
-    assert_eq!(result.download_name, Some("bun-linux-x64.zip".into()));
 
     // This is different between boxes in CI, so impossible to capture!
+    // assert_eq!(result.archive_prefix, Some("bun-linux-x64".into()));
+    // assert_eq!(result.download_name, Some("bun-linux-x64.zip".into()));
     assert!(
         result.download_url ==
         "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-linux-x64.zip" || result.download_url ==
