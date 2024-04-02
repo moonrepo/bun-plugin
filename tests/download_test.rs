@@ -1,9 +1,7 @@
 use proto_pdk_test_utils::*;
 
-#[cfg(not(windows))]
-generate_download_install_tests!("bun-test", "1.0.0");
+generate_download_install_tests!("bun-test", "1.1.0");
 
-#[cfg(not(windows))]
 mod canary {
     use super::*;
 
@@ -46,25 +44,26 @@ fn supports_linux_x64() {
         config.host(HostOS::Linux, HostArch::X64);
     });
 
+    let result = plugin.download_prebuilt(DownloadPrebuiltInput {
+        context: ToolContext {
+            version: VersionSpec::parse("1.2.0").unwrap(),
+            ..Default::default()
+        },
+        ..Default::default()
+    });
+
     assert_eq!(
-        plugin.download_prebuilt(DownloadPrebuiltInput {
-            context: ToolContext {
-                version: VersionSpec::parse("1.2.0").unwrap(),
-                ..Default::default()
-            },
-            ..Default::default()
-        }),
-        DownloadPrebuiltOutput {
-            archive_prefix: Some("bun-linux-x64".into()),
-            checksum_url: Some(
-                "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
-            ),
-            download_name: Some("bun-linux-x64.zip".into()),
-            download_url:
-                "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-linux-x64.zip"
-                    .into(),
-            ..Default::default()
-        }
+        result.checksum_url,
+        Some("https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into())
+    );
+
+    // This is different between boxes in CI, so impossible to capture!
+    // assert_eq!(result.archive_prefix, Some("bun-linux-x64".into()));
+    // assert_eq!(result.download_name, Some("bun-linux-x64.zip".into()));
+    assert!(
+        result.download_url ==
+        "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-linux-x64.zip" || result.download_url ==
+        "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-linux-x64-baseline.zip"
     );
 }
 
@@ -127,20 +126,32 @@ fn supports_macos_x64() {
 }
 
 #[test]
-#[should_panic(expected = "Unable to install Bun")]
-fn doesnt_support_windows() {
+fn supports_windows_x64() {
     let sandbox = create_empty_proto_sandbox();
     let plugin = sandbox.create_plugin_with_config("bun-test", |config| {
         config.host(HostOS::Windows, HostArch::X64);
     });
 
-    plugin.download_prebuilt(DownloadPrebuiltInput {
-        context: ToolContext {
-            version: VersionSpec::parse("1.2.0").unwrap(),
+    assert_eq!(
+        plugin.download_prebuilt(DownloadPrebuiltInput {
+            context: ToolContext {
+                version: VersionSpec::parse("1.2.0").unwrap(),
+                ..Default::default()
+            },
             ..Default::default()
-        },
-        ..Default::default()
-    });
+        }),
+        DownloadPrebuiltOutput {
+            archive_prefix: Some("bun-windows-x64".into()),
+            checksum_url: Some(
+                "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/SHASUMS256.txt".into()
+            ),
+            download_name: Some("bun-windows-x64.zip".into()),
+            download_url:
+                "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-windows-x64.zip"
+                    .into(),
+            ..Default::default()
+        }
+    );
 }
 
 #[test]

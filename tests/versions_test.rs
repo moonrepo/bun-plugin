@@ -3,7 +3,7 @@ use proto_pdk_test_utils::*;
 generate_resolve_versions_tests!("bun-test", {
     "0.4" => "0.4.0",
     "0.5.1" => "0.5.1",
-    "1" => "1.0.33",
+    "1.1.0" => "1.1.0",
 });
 
 #[test]

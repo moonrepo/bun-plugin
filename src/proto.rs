@@ -38,14 +38,27 @@ pub fn download_prebuilt(
     Json(input): Json<DownloadPrebuiltInput>,
 ) -> FnResult<Json<DownloadPrebuiltOutput>> {
     let env = get_host_environment()?;
+    let has_windows_support = match &input.context.version {
+        VersionSpec::Canary => true,
+        VersionSpec::Alias(alias) => alias == "latest",
+        VersionSpec::Version(version) => version.major >= 1 && version.minor >= 1,
+    };
 
     check_supported_os_and_arch(
         NAME,
         &env,
-        permutations! [
-            HostOS::Linux => [HostArch::X64, HostArch::Arm64],
-            HostOS::MacOS => [HostArch::X64, HostArch::Arm64],
-        ],
+        if has_windows_support {
+            permutations! [
+                HostOS::Linux => [HostArch::X64, HostArch::Arm64],
+                HostOS::MacOS => [HostArch::X64, HostArch::Arm64],
+                HostOS::Windows => [HostArch::X64],
+            ]
+        } else {
+            permutations! [
+                HostOS::Linux => [HostArch::X64, HostArch::Arm64],
+                HostOS::MacOS => [HostArch::X64, HostArch::Arm64],
+            ]
+        },
     )?;
 
     let version = &input.context.version;
@@ -68,6 +81,7 @@ pub fn download_prebuilt(
     let prefix = match env.os {
         HostOS::Linux => format!("bun-linux-{arch}{avx2_suffix}"),
         HostOS::MacOS => format!("bun-darwin-{arch}{avx2_suffix}"),
+        HostOS::Windows => format!("bun-windows-{arch}"),
         _ => unreachable!(),
     };
 
