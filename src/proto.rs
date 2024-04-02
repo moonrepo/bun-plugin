@@ -56,9 +56,18 @@ pub fn download_prebuilt(
         _ => unreachable!(),
     };
 
+    let mut avx2_suffix = "";
+
+    if env.arch == HostArch::X64 && env.os == HostOS::Linux && command_exists(&env, "grep") {
+        let output = exec_command!("grep", ["avx2", "/proc/cpuinfo"]);
+        if output.exit_code != 0 {
+            avx2_suffix = "-baseline";
+        }
+    };
+
     let prefix = match env.os {
-        HostOS::Linux => format!("bun-linux-{arch}"),
-        HostOS::MacOS => format!("bun-darwin-{arch}"),
+        HostOS::Linux => format!("bun-linux-{arch}{avx2_suffix}"),
+        HostOS::MacOS => format!("bun-darwin-{arch}{avx2_suffix}"),
         _ => unreachable!(),
     };
 
