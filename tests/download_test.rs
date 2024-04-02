@@ -59,7 +59,7 @@ fn supports_linux_x64() {
             ),
             download_name: Some("bun-linux-x64.zip".into()),
             download_url:
-                "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-linux-x64.zip"
+                "https://github.com/oven-sh/bun/releases/download/bun-v1.2.0/bun-linux-x64-baseline.zip"
                     .into(),
             ..Default::default()
         }
