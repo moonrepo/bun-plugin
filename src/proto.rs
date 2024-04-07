@@ -1,3 +1,4 @@
+use crate::config::BunPluginConfig;
 use extism_pdk::*;
 use proto_pdk::*;
 use std::collections::HashMap;
@@ -73,6 +74,7 @@ pub fn download_prebuilt(
 
     if env.arch == HostArch::X64 && env.os == HostOS::Linux && command_exists(&env, "grep") {
         let output = exec_command!("grep", ["avx2", "/proc/cpuinfo"]);
+
         if output.exit_code != 0 {
             avx2_suffix = "-baseline";
         }
@@ -86,24 +88,27 @@ pub fn download_prebuilt(
     };
 
     let filename = format!("{prefix}.zip");
+    let mut host = get_tool_config::<BunPluginConfig>()?.dist_url;
 
-    let tag = if version.is_canary() {
-        "canary".to_owned()
-    } else {
-        format!("bun-v{version}")
+    // canary - bun-v1.2.3
+    if version.is_canary() {
+        host = host.replace("bun-v{version}", "{version}");
     };
 
     Ok(Json(DownloadPrebuiltOutput {
         archive_prefix: Some(prefix),
-        download_url: format!("https://github.com/oven-sh/bun/releases/download/{tag}/{filename}"),
+        download_url: host
+            .replace("{version}", &version.to_string())
+            .replace("{file}", &filename),
         download_name: Some(filename),
         // Checksums are not consistently updated
         checksum_url: if version.is_canary() {
             None
         } else {
-            Some(format!(
-                "https://github.com/oven-sh/bun/releases/download/{tag}/SHASUMS256.txt"
-            ))
+            Some(
+                host.replace("{version}", &version.to_string())
+                    .replace("{file}", "SHASUMS256.txt"),
+            )
         },
         ..DownloadPrebuiltOutput::default()
     }))
