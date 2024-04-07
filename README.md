@@ -13,7 +13,14 @@ bun = "source:https://github.com/moonrepo/bun-plugin/releases/download/vX.Y.Z/bu
 
 ## Configuration
 
-Bun plugin does not support configuration.
+Bun plugin can be configured with a `.prototools` file.
+
+- `dist-url` (string) - The distribution URL to download Bun archives from. Supports `{version}` and `{file}` tokens.
+
+```toml
+[tools.bun]
+dist-url = "https://..."
+```
 
 ## Hooks
 
