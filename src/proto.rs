@@ -42,7 +42,8 @@ pub fn download_prebuilt(
     let has_windows_support = match &input.context.version {
         VersionSpec::Canary => true,
         VersionSpec::Alias(alias) => alias == "latest",
-        VersionSpec::Version(version) => version.major >= 1 && version.minor >= 1,
+        VersionSpec::Semantic(version) => version.major >= 1 && version.minor >= 1,
+        _ => false,
     };
 
     check_supported_os_and_arch(
