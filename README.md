@@ -1,3 +1,5 @@
+> # Migrated to a new repository: https://github.com/moonrepo/tools
+
 # Bun plugin
 
 [Bun](https://bun.sh/) WASM plugin for [proto](https://github.com/moonrepo/proto).
